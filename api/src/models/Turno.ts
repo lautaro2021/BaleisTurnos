@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize: any) => {
     sequelize.define('Turno', {
@@ -17,12 +17,17 @@ module.exports = (sequelize: any) => {
             allownull: false,
         },
         dia: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allownull: false,
         },
         hora: {
             type: DataTypes.TIME,
             allownull: false,
+        },
+        solicited: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allownull: false
         }
     }, {
         timestamps: true,

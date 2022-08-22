@@ -11,6 +11,10 @@ module.exports = (sequelize: any) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        prof: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         name: {
             type: DataTypes.STRING(50),
             allownull: false,
@@ -30,7 +34,7 @@ module.exports = (sequelize: any) => {
         avatar: {
             type: DataTypes.STRING,
             allownull: false,
-        }
+        },
     }, {
         timestamps: true
     })
