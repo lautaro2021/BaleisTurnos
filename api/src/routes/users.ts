@@ -33,5 +33,6 @@ export const updateUserInfo = async (newUser: types.User): Promise<types.User | 
 
 export const deleteUser = async(id: string): Promise<types.User | string> => {
     const user = await User.destroy({where: {id}});
+    //aca hay que eliminar el turno tambien
     return user ? user : "No se encontro el usuario";
 }
