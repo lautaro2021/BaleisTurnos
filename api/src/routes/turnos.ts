@@ -1,6 +1,6 @@
 // import express from "express";
 import { Router } from "express";
-import { addNewTurno, getAllTurnos, getTurnoById, solicitedTurno, updateTurno } from "../services/turnoServices";
+import { addNewTurno, deleteTurno, getAllTurnos, getTurnoById, solicitedTurno, updateTurno } from "../services/turnoServices";
 const router = Router()
 
 router.get('/',async (_req,res)=>{
@@ -48,6 +48,16 @@ router.put('/update/:id',async (req,res)=>{
     const turnoUpdate = req.body
     try {
         let response = await updateTurno(id, turnoUpdate)
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.delete('/:id',async (req,res)=>{
+    //Recibe datos por body y los envia a la funcion
+    const id = req.params.id
+    try {
+        let response = await deleteTurno(id)
         res.send(response)
     } catch (error) {
         console.log(error)

@@ -24,3 +24,7 @@ export const updateTurno = async (idTurno:string, newTurno:any)=>{
     await Turno.update(newTurno, {where: {id: idTurno}})
     return 'Turno modificado con éxito'
 }
+export const deleteTurno = async (idTurno:string)=>{
+    await Turno.destroy({where: {id: idTurno}})
+    return 'Turno eliminado con éxito'
+}
