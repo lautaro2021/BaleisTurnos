@@ -4,7 +4,7 @@ import { addNewTurno, deleteTurno, getAllTurnos, getTurnoById, solicitedTurno, u
 const router = Router()
 
 router.get('/',async (_req,res)=>{
-    //Obtiene todos los turnos, y si le pasan ID por params obtiene solo uno
+    //Obtiene todos los turnos
     try {
         const allTurnos = await getAllTurnos()
         res.json(allTurnos)
@@ -13,7 +13,7 @@ router.get('/',async (_req,res)=>{
     }
 })
 router.get('/:id',async (req,res)=>{
-    //Obtiene todos los turnos, y si le pasan ID por params obtiene solo uno
+    //Obtiene turno especifico
     const id = req.params.id
     try {
         const turnoById = await getTurnoById(id)
@@ -32,11 +32,11 @@ router.post('/',async (req,res)=>{
         console.log(error)
     }
 })
-router.put('/solicited/:id',async (req,res)=>{
+router.put('/solicited/:idTurno/:idUser',async (req,res)=>{
     //Recibe datos por body y los envia a la funcion
-    const id = req.params.id
+    const {idTurno, idUser} = req.params
     try {
-        let response = await solicitedTurno(id)
+        let response = await solicitedTurno(idTurno, idUser)
         res.send(response)
     } catch (error) {
         console.log(error)

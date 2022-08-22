@@ -17,9 +17,14 @@ export const addNewTurno = async (turnoData:types.Turno)=>{
     await Turno.create(turnoData)
     return 'Turno creado con éxito'
 }
-export const solicitedTurno = async (idTurno:string)=>{
-    await Turno.update({solicited: true}, {where: {id: idTurno}})
-    return 'Turno solicitado con éxito'
+export const solicitedTurno = async (idTurno:string,idUser:string)=>{
+    await Turno.update({solicited: true, UserId: idUser}, {where: {id: idTurno}})
+    let turno = await Turno.findByPk(idTurno)
+    if(turno?.solicited){
+        return 'Turno solicitado con éxito'
+    }else{
+        return 'No se ha podido solicitar el turno'
+    }
 }
 export const updateTurno = async (idTurno:string, newTurno:types.Turno)=>{
     await Turno.update(newTurno, {where: {id: idTurno}})
