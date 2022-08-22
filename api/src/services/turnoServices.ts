@@ -1,3 +1,4 @@
+import * as types from '../types';
 const { Turno } = require('../db')
 
 export const getAllTurnos = async ()=>{
@@ -12,7 +13,7 @@ export const getTurnoById = async (id:string)=>{
         return "No se ha podido encontrar el turno"
     }
 }
-export const addNewTurno = async (turnoData:any)=>{
+export const addNewTurno = async (turnoData:types.Turno)=>{
     await Turno.create(turnoData)
     return 'Turno creado con éxito'
 }
@@ -20,7 +21,7 @@ export const solicitedTurno = async (idTurno:string)=>{
     await Turno.update({solicited: true}, {where: {id: idTurno}})
     return 'Turno solicitado con éxito'
 }
-export const updateTurno = async (idTurno:string, newTurno:any)=>{
+export const updateTurno = async (idTurno:string, newTurno:types.Turno)=>{
     await Turno.update(newTurno, {where: {id: idTurno}})
     return 'Turno modificado con éxito'
 }
