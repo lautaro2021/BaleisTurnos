@@ -1,7 +1,3 @@
-const initialState = {
+export default function rootReducer(){
 
-}
-
-export default function(state = initialState, action: any) {
-    
-}
+};
