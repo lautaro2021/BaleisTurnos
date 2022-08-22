@@ -7,3 +7,11 @@ export interface User{
      phone: string,
      avatar: string
 }
+export interface Turno{
+     id: string,
+     tipo: string,
+     prof: string,
+     dia: string,
+     hora: string,
+     solicited: boolean
+}
