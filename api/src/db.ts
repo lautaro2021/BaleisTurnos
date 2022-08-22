@@ -48,8 +48,8 @@ fs.readdirSync(path.join(__dirname, '/models'))
   .forEach((file:any) => {
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
-
-// Injectamos la conexion (sequelize) a todos los modelos
+  
+  // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);

@@ -1,38 +1,50 @@
-import * as types from '../types';
-const { User } = require('../db');
-const { DB_EMAIL} = process.env;
+import { Router } from "express";
+import { addNewUser, deleteUser, getAllUsers, getUserById, updateUserInfo } from "../services/userServices";
+const router = Router()
 
-export const getAllUsers = async ():Promise<types.User[]> => {
-    const allUsers = await User.findAll();
-    return allUsers;
-}
-
-export const getUserById = async (id: string): Promise<types.User | string> =>{
-    if(id){
-        const user = User.findByPk(id);
-        return user;
+router.get('/',async (_req,res)=>{
+    try {
+        const allUsers = await getAllUsers()
+        res.json(allUsers)
+    } catch (error) {
+        console.log(error)
     }
-    return "No se encontro usuario con ese id";
-}
-
-export const addNewUser = async (user: types.User): Promise<string> => {
-    if(user.email === DB_EMAIL){
-        await User.create({... user, admin: true});
-    }else{
-        await User.create(user)
+})
+router.get('/:id',async (req,res)=>{
+    const id = req.params.id
+    try {
+        const userById = await getUserById(id)
+        res.json(userById)
+    } catch (error) {
+        console.log(error)
     }
-    return "Usuario creado con exito";
-}
+})
+router.post('/',async (req,res)=>{
+    const newUser = req.body
+    try {
+        const userById = await addNewUser(newUser)
+        res.send(userById)
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.put('/',async (req,res)=>{
+    const newUser = req.body
+    try {
+        const userById = await updateUserInfo(newUser)
+        res.send(userById)
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.delete('/:id',async (req,res)=>{
+    const id = req.params.id
+    try {
+        const userById = await deleteUser(id)
+        res.send(userById)
+    } catch (error) {
+        console.log(error)
+    }
+})
 
-export const updateUserInfo = async (newUser: types.User): Promise<types.User | string> => {
-    await User.update(newUser, {where: {id: newUser.id}});
-    const modificatedUser = await User.findByPk(newUser.id);
-    return modificatedUser ? modificatedUser : "No se encontro usuario";
-    
-}
-
-export const deleteUser = async(id: string): Promise<types.User | string> => {
-    const user = await User.destroy({where: {id}});
-    //aca hay que eliminar el turno tambien
-    return user ? user : "No se encontro el usuario";
-}
+module.exports = router
